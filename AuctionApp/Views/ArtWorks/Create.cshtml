@@ -1,0 +1,59 @@
+﻿@model AuctionApp.ViewModels.CreateArtwork
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<h4>ArtWork</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form enctype="multipart/form-data" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Caption" class="control-label"></label>
+                <input asp-for="Caption" class="form-control" />
+                <span asp-validation-for="Caption" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Sold" /> @Html.DisplayNameFor(model => model.Sold)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Author</label>
+                <select asp-for="AuthorId" class ="form-control" asp-items="ViewBag.Author"></select>
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.Category"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <label id="browse" class="form-control"><i class="fas fa-image">&nbsp;&nbsp;&nbsp;</i>Browse<input type="file" name="Image" hidden>&nbsp;&nbsp;&nbsp;<span id="thickSpan"></span></label>
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

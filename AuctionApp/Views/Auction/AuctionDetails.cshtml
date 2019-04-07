@@ -1,0 +1,80 @@
+﻿@model AuctionDetails
+<h4>@Model.Name</h4>
+<hr />
+<div class="modal" id="biddingModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Your offer</h4>
+                <button type="button" class="close closebtn" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="number" id="bidamount" class="form-control" />
+                <span id="errmodal"></span>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn closebtn" data-dismiss="modal">Close</button>
+                <button type="button" class="btn bidbtn" data-dismiss="modal">Bid</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row" id="artworkblock">
+    <div align="center" class="col-lg-6">
+        <img class="artworkimage img-fluid" src="@Model.Image" alt="@Model.Name" />
+    </div>
+    <div class="col-lg-6">
+        <h5>Starting price: <strong>$@Model.StartingPrice</strong></h5>
+        <h6>@Model.Caption</h6>
+        <ul>
+            <li><p>@Model.Category</p></li>
+            <li><p>Author: @Model.Author</p></li>
+            <li>
+                <p>
+                    Sold: @if (Model.Sold)
+                    {<span><strong>Yes</strong></span>}
+                    else
+                    {<span><strong>No</strong></span>}
+                </p>
+            </li>
+            <li>
+                <p><i class="far fa-clock"></i> Posted on: @Model.DateTime by @Model.UserPosted</p>
+            </li>
+        </ul>
+        <div id="options">
+            @if (!Model.Sold)
+            {
+                @if (Model.UserPosted == User.Identity.Name)
+                {
+                    <a asp-action="DeleteAuction" asp-controller="Auction" asp-route-del="@Model.AuctionId" class="auctaction"><i class="far fa-trash-alt"></i> Delete</a>
+                    <a asp-action="EndAuction" asp-controller="Auction" asp-route-auct="@Model.AuctionId" class="auctaction"><i class="fas fa-hourglass-end"></i> End auction</a>
+                }
+                else if (User.Identity.IsAuthenticated)
+                {
+                    <a href="#" id="bid" class="auctaction card-link" data-currhigh="@await Component.InvokeAsync("HighestBid", Model.AuctionId)" data-startpr="@Model.StartingPrice" data-id="@Model.AuctionId"><i class="fas fa-hand-holding-usd"></i> Make a bid</a>
+                }
+                else
+                {
+                    <p><i>To make a bid, please register.</i></p>
+
+                }
+            }
+        </div>
+    </div>
+</div>
+<div id="latestoffers">
+    <h4>Latest offers</h4>
+    @await Component.InvokeAsync("LatestBids", Model.AuctionId)
+</div>
+@section scripts{
+    <script src="~/js/dialogauctdetails.js"></script>
+    <script src="~/lib/aspnet/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/realtimeauctiondetails.js"></script>
+}

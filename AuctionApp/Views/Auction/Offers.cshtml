@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Offer>
+<h4>All offers</h4>
+<hr />
+@if (Model.Count() != 0)
+{
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Bidder: @item.User.UserName</h5>
+                <h6>Amount: $@item.Amount</h6>
+                <p class="card-text">Time: @item.DateTime</p>
+            </div>
+        </div>
+    }
+    <ul class="pagination">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <li class="page-item"><a class="page-link" asp-action="Offers" asp-route-page="@(ViewBag.CurrentPage - 1)" asp-route-auct="@ViewBag.AuctionId" asp-controller="Auction">Previous</a></li>
+        }
+        @for (int i = 1; i <= ViewBag.NumberOfPages; i++)
+        {
+            <li class="page-item"><a class="page-link" asp-action="Offers" asp-route-auct="@ViewBag.AuctionId" asp-route-page="@i" asp-controller="Auction">@i</a></li>
+        }
+        @if (ViewBag.CurrentPage != ViewBag.NumberOfPages)
+        {
+            <li class="page-item"><a class="page-link" asp-action="Offers" asp-route-auct="@ViewBag.AuctionId" asp-route-page="@(ViewBag.CurrentPage + 1)" asp-controller="Auction">Next</a></li>
+        }
+    </ul>
+}
+else
+{
+    <h1>There is no offer for this auction.</h1>
+}

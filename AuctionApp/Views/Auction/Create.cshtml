@@ -1,0 +1,35 @@
+﻿@model CreateAuction
+@{
+    ViewData["Title"] = "Create an auction";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4>Create Auction</h4>
+<hr />
+<div class="modal" id="resultsmodal"></div>
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div id="createauctionformupper">
+            <div class="form-group" id="searchartworkdiv">
+                <label class="control-label">Search for the existing artwork</label>
+                <input type="search" id="searchartwork" class="form-control" />
+            </div>
+        </div>
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <span>
+                <input type="hidden" id="artworkidchosen" asp-for="Artworkidchosen" />
+                <span asp-validation-for="Artworkidchosen" class="text-danger"></span>
+            </span>
+            <div class="form-group">
+                <label asp-for="StartingPrice" class="control-label"></label>
+                <input asp-for="StartingPrice" type="number" class="form-control" />
+                <span asp-validation-for="StartingPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-warning" />
+            </div>
+        </form>
+    </div>
+</div>
+@section scripts{
+    <script src="~/js/createauctionscript.js"></script>
+}

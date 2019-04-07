@@ -1,0 +1,53 @@
+﻿@model EditProfileViewModel
+@{
+    ViewData["Title"] = "Edit profile";
+}
+<div class="col-md-12 col-lg-6 offset-lg-3">
+    <h2>Edit profile</h2>
+    <form method="post" asp-action="EditProfile" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="FirstName" class="control-label"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName" class="control-label"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Bio" class="control-label"></label>
+            <textarea asp-for="Bio" rows="10" class="form-control"></textarea>
+            <span asp-validation-for="Bio" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-xl-5 col-sm-8 col-8"><label>Change password:</label></div>
+            <div class="col-xl-1 col-sm-2 col-2"><input type="checkbox" class="form-control" id="passwdchb" name="passwdchb" /></div>
+        </div>
+        <div class="form-group chpswd">
+            <label asp-for="CurrentPassword" class="control-label"></label>
+            <input asp-for="CurrentPassword" class="form-control" />
+            <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+        </div>
+        <div class="form-group chpswd">
+            <label asp-for="NewPassword" class="control-label"></label>
+            <input asp-for="NewPassword" class="form-control" />
+            <span asp-validation-for="NewPassword" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Image" class="control-label"></label>
+            <label id="browse" class="form-control"><i class="fas fa-image">&nbsp;&nbsp;&nbsp;</i>Browse<input type="file" name="Image" hidden>&nbsp;&nbsp;&nbsp;<span id="thickSpan"></span></label>
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-warning" />
+        </div>
+    </form>
+</div>
+<script src="~/js/editprofile.js"></script>

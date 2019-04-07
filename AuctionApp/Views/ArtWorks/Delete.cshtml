@@ -1,0 +1,58 @@
+﻿@model AuctionApp.Entities.ArtWork
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ArtWork</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Caption)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Caption)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Sold)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sold)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Author.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ArtWorkId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

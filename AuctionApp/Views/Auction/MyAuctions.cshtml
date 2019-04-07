@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Auction>
+<h4>My auctions</h4>
+<hr />
+@if (Model.Count() != 0)
+{
+    @foreach (var item in Model)
+    {
+        <div class="card" id="auct-@item.AuctionId">
+            <div class="card-body">
+                <h5 class="card-title">
+                    @item.ArtWork.Name (@(item.ArtWork.Author.FirstName + " " + item.ArtWork.Author.LastName)) @if (item.ArtWork.Sold)
+                    {<span class="badge badge-secondary">Sold</span>}
+                </h5>
+                <h6><strong>Starting price: $@item.StartingPrice</strong></h6>
+                <p class="card-text">@item.ArtWork.Caption</p>
+                <p class="card-text">Posted on: @item.DateTime.ToString()</p>
+                <p class="highestbid">@if (item.ArtWork.Sold)
+                {<span>Sold for: </span> }
+                else
+                {<span>Currently the highest bid: </span>} <strong>@await Component.InvokeAsync("HighestBid", item.AuctionId)</strong></p>
+                <a asp-controller="Auction" asp-action="AuctionDetails" asp-route-auct="@item.AuctionId" class="card-link">Read more...</a>
+                @if (!item.ArtWork.Sold)
+                {
+                    <a asp-action="DeleteAuction" asp-controller="Auction" asp-route-del="@item.AuctionId" class="card-link">Delete</a>
+                }
+                <a asp-action="Offers" asp-controller="Auction" class="card-link" asp-route-auct="@item.AuctionId">Offers</a>
+                @if (!item.ArtWork.Sold)
+                {
+                    <a asp-action="EndAuction" asp-controller="Auction" asp-route-auct="@item.AuctionId" class="card-link">End auction</a>
+                }
+            </div>
+        </div>
+    }
+}
+else
+{
+    <h1>You didn't make any auction.</h1>
+}
+@section scripts{
+    <script src="~/lib/aspnet/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/realtime.js"></script>
+}

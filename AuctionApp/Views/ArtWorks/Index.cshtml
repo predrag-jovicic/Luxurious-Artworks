@@ -1,0 +1,66 @@
+﻿@model IEnumerable<AuctionApp.Entities.ArtWork>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Artworks</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Caption)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sold)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Caption)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sold)
+            </td>
+            <td>
+                <img style="width:100%" src="@Html.DisplayFor(modelItem => item.Image)" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author.FirstName) @Html.DisplayFor(modelItem => item.Author.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ArtWorkId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ArtWorkId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ArtWorkId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

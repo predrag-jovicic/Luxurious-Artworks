@@ -1,0 +1,19 @@
+﻿@model BiddingViewModel
+<h4>Bidding</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" asp-action="Bidding">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Value must be higher than the value of the last bid</label>
+                <input asp-for="Amount" type="number" class="form-control" />
+                <span asp-validation-for="Amount"></span>
+            </div>
+            <input asp-for="AuctionId" type="hidden" value="@ViewBag.AuctionId"/>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-warning" />
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Home page";
+}
+@model TrendingViewModel
+<hgroup>
+    <h1>Luxurious artworks</h1>
+    <h3><i>for sale</i></h3>
+    <h4><strong>Trending now</strong></h4>
+</hgroup>
+<div class="row">
+    <div class="trendingdiv col-md-12 col-lg-5 offset-lg-1">
+        <h2>The hottest auction</h2>
+        @if (Model.Auction != null)
+        {
+        <h5>@Model.Auction.ArtWork.Name</h5>
+        <p>Author: @Model.Auction.ArtWork.Author.FirstName @Model.Auction.ArtWork.Author.LastName</p>
+        <img class="artworkimage img-fluid" src="@Model.Auction.ArtWork.Image" />
+        <p>Starting price: <strong>$@Model.Auction.StartingPrice</strong></p>
+        <p>Owner: @Model.Auction.User.UserName</p>
+        <a asp-controller="Auction" asp-action="AuctionDetails" asp-route-auct="@Model.Auction.AuctionId" class="card-link">Read more...</a>
+        }
+        else
+        {
+            <h4>There's no auction trending.</h4>
+        }
+    </div>
+    <div class="trendingdiv col-md-12 col-lg-5 offset-lg-1">
+        <h2>The top selling artist</h2><br/>
+        <h5><strong>@Model.Author.FirstName @Model.Author.LastName</strong></h5>
+        <p>Date of birth: @Model.Author.DateOfBirth.ToString()</p>
+    </div>
+</div>

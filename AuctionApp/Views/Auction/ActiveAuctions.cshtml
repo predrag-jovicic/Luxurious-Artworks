@@ -1,0 +1,72 @@
+﻿@model List<Auction>
+<h4>Active auctions</h4>
+<hr />
+<div class="modal" id="biddingModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Your offer</h4>
+                <button type="button" class="close closebtn" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="number" id="bidamount" class="form-control" />
+                <span id="errmodal"></span>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn closebtn" data-dismiss="modal">Close</button>
+                <button type="button" class="btn bidbtn" data-dismiss="modal">Bid</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="auctions">
+    @if (Model.Count != 0)
+    {
+        @foreach (var item in Model)
+        {
+            <div class="card" id="auct-@item.AuctionId">
+                <div class="card-body">
+                    <h5 class="card-title">@item.ArtWork.Name (@(item.ArtWork.Author.FirstName + " " + @item.ArtWork.Author.LastName))</h5>
+                    <h6><strong>Starting price: $@item.StartingPrice</strong></h6>
+                    <p class="card-text">@item.ArtWork.Caption</p>
+                    <p class="card-text">Posted on: @item.DateTime.ToString() by @(item.User.FirstName + " " + item.User.LastName)</p>
+                    <p class="highestbid">Currently the highest bid: <strong>@await Component.InvokeAsync("HighestBid", item.AuctionId)</strong></p>
+                    <a asp-controller="Auction" asp-action="AuctionDetails" asp-route-auct="@item.AuctionId" class="card-link">Read more...</a>
+                    @if (User.Identity.IsAuthenticated && User.Identity.Name != item.User.UserName)
+                    {
+                        @*<a asp-action="Bidding" asp-controller="Auction" asp-route-auct="@item.AuctionId" class="card-link">Make a bid</a> Version without AJAX *@
+                        <a href="#" data-currhigh="@await Component.InvokeAsync("HighestBid", item.AuctionId)" data-startpr="@item.StartingPrice" data-id="@item.AuctionId" class="card-link bid">Make a bid</a>
+                    }
+                    @if (User.Identity.Name == item.User.UserName)
+                    {
+                        @*<a asp-action="DeleteAuction" asp-controller="Auction" asp-route-del="@item.AuctionId" class="card-link">Delete</a>*@
+                        <a href="#" data-id="@item.AuctionId" class="card-link deleteAuctionbtn">Delete</a>
+                        <a asp-action="Offers" asp-controller="Auction" class="card-link" asp-route-auct="@item.AuctionId">Offers</a>
+                        @*<a asp-action="EndAuction" asp-controller="Auction" asp-route-auct="@item.AuctionId" class="card-link">End auction</a>*@
+                        <a href="#" data-id="@item.AuctionId" class="card-link endAuctionbtn">End auction</a>
+                    }
+                </div>
+            </div>
+        }
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <p>To make a bid, please register.</p>
+        }
+    }
+    else
+    {
+        <h1 id="noauctionsmessage">There is no active auctions.</h1>
+    }
+</div>
+    @section scripts{
+        <script src="~/js/dialogactiveauct.js"></script>
+        <script src="~/lib/aspnet/signalr/dist/browser/signalr.js"></script>
+        <script src="~/js/realtime.js"></script>
+    }

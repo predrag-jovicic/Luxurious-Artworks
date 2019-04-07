@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/style.css" rel="stylesheet" />
+    <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <link href="~/node_modules/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#116466">
+    <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#116466">
+    <script src="~/js/menu.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container">
+            <div id="togglercontainer">
+                <button id="btnexpand"><span class="navbar-toggler-icon"></span></button>
+                <h1>Luxurious Artworks</h1>
+            </div>
+            <ul class="navbar-nav">
+                @if (!User.IsInRole("admins"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Home"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="ActiveAuctions" asp-controller="Auction">
+                            <i class="fas fa-gavel active"></i> Active auctions
+                        </a>
+                    </li>
+                }
+                @if (User.IsInRole("authusers"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Create" asp-controller="Auction"> <i class="fas fa-plus"></i> Create an auction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="MyAuctions" asp-controller="Auction"><i class="fas fa-gavel"></i> My auctions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="MyBids" asp-controller="Auction"><i class="fas fa-hand-holding-usd"></i> My bids</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="MyProfile" asp-controller="Home"><i class="fas fa-user"></i> My profile</a>
+                    </li>
+                }
+                @if (User.IsInRole("admins"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Artworks"><i class="fas fa-paint-brush"></i> Artworks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Categories"><i class="fas fa-list"></i> Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Authors"><i class="fas fa-user-friends"></i> Authors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="EditProfile" asp-controller="Home"><i class="fas fa-sliders-h"></i> Edit Profile</a>
+                    </li>
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Logout" asp-controller="Home"><i class="fas fa-sign-out-alt"></i> Sign out</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Login" asp-controller="Home"><i class="fas fa-sign-in-alt"></i> Sign in</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </nav>
+    <div class="container body-content">
+        <main>
+            @RenderBody()
+        </main>
+        <hr />
+        <footer>
+            <p>&copy; 2018</p>
+        </footer>
+    </div>
+    @RenderSection("scripts", false)
+    @await Html.PartialAsync("_ValidationScriptsPartial.cshtml")
+</body>
+</html>

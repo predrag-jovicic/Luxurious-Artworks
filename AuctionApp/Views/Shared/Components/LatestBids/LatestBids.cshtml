@@ -1,0 +1,20 @@
+﻿@model LatestOffersViewModel
+@if (Model.LatestBids.Count() != 0)
+{
+    @foreach (var item in Model.LatestBids)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Bidder: @if (Model.CurrentUser == Model.UserCreated || Model.CurrentUser == item.UserId) {<span>@item.User.UserName</span>} else {<span>XXX</span>}</h5>
+                <h6>Amount: $@item.Amount</h6>
+                <p class="card-text">Time: @item.DateTime</p>
+            </div>
+        </div>
+    }
+        @if (Model.CurrentUser == Model.UserCreated)
+        {<p><a asp-controller="Auction" asp-action="Offers" asp-route-auct="@Model.AuctionId">View all</a></p>}
+}
+else
+{
+    <h6 id="nooffersmessage">There is no offer for this auction.</h6>
+}

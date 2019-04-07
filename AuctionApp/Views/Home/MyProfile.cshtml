@@ -1,0 +1,90 @@
+﻿@model UserProfileViewModel
+<h2>@User.Identity.Name</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6 col-12" id="piccontainer">
+        @if (Model.User.Image == null)
+        {<img class="img-fluid" id="profilepic" src="~/images/profileimages/unknownprofile.jpg" alt="nophoto" />}
+        else
+        {
+            <img class="img-fluid" id="profilepic" src="@Model.User.Image" alt="UserProfilePicture" />
+        }
+    </div>
+    <div class="col-md-6 col-12" id="profileinfo">
+        <p>First name: @Model.User.FirstName</p>
+        <p>Last name: @Model.User.LastName</p>
+        <p>E-mail: @Model.User.Email</p>
+        @if (Model.User.Biography != null)
+        {
+            <p>Bio: @Model.User.Biography</p>
+        }
+        <p>
+            E-mail confirmed: @if (Model.User.EmailConfirmed)
+            {<span>Yes</span>}
+            else
+            {<span>No</span>}
+        </p>
+        @if (User.Identity.IsAuthenticated)
+        {<a asp-controller="Home" asp-action="EditProfile" class="auctaction">Edit your profile</a>}
+    </div>
+</div>
+<hr/>
+<h3>Your 3 latest auctions</h3>
+@if (Model.MyAuctions.Count() != 0)
+{
+    @foreach (var item in Model.MyAuctions)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    @item.ArtWork.Name (@item.ArtWork.Author.FirstName @item.ArtWork.Author.LastName) @if (item.ArtWork.Sold)
+                    {<span class="badge badge-secondary">Sold</span>}
+                </h5>
+                <h6><strong>Starting price: $@item.StartingPrice</strong></h6>
+                <p class="card-text">@item.ArtWork.Caption</p>
+                <p class="card-text">Posted on: @item.DateTime.ToString()</p>
+                <p>
+                    @if (item.ArtWork.Sold)
+                    {<span>Sold for: </span> }
+                    else
+                    {<span>Currently the highest bid: </span>} <strong>@await Component.InvokeAsync("HighestBid", item.AuctionId)</strong>
+                </p>
+                <a asp-controller="Auction" asp-action="AuctionDetails" asp-route-auct="@item.AuctionId" class="card-link">Read more...</a>
+                @if (!item.ArtWork.Sold)
+                {
+                    <a asp-action="DeleteAuction" asp-controller="Auction" asp-route-del="@item.AuctionId" class="card-link">Delete</a>
+                }
+                <a asp-action="Offers" asp-controller="Auction" class="card-link" asp-route-auct="@item.AuctionId">Offers</a>
+                @if (!item.ArtWork.Sold)
+                {
+                    <a asp-action="EndAuction" asp-controller="Auction" asp-route-auct="@item.AuctionId" class="card-link">End auction</a>
+                }
+            </div>
+        </div>
+    }
+}
+else
+{
+    <h4>You didn't make any auction.</h4>
+}
+<hr/>
+<h3>Your 3 latest bids</h3>
+@if (Model.MyBids.Count() != 0)
+{
+    @foreach (var item in Model.MyBids)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a asp-controller="Auction" asp-action="AuctionDetails" asp-route-auct="@item.AuctionId">@item.Auction.ArtWork.Name (@(item.Auction.ArtWork.Author.FirstName + " " + item.Auction.ArtWork.Author.LastName))</a>
+                </h5>
+                <h6>Amount: $@item.Amount</h6>
+                <p class="card-text">Time: @item.DateTime.ToString()</p>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <h4>You didn't make any bid.</h4>
+}

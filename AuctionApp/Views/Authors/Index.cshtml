@@ -1,0 +1,48 @@
+﻿@model IEnumerable<AuctionApp.Entities.Author>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Authors</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    First name
+                </th>
+                <th>
+                    Last name
+                </th>
+                <th>
+                    Date of birth
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AuthorId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AuthorId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AuthorId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

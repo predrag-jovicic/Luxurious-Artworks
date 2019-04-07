@@ -1,0 +1,221 @@
+﻿body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #2c3531;
+    color: #d1e8e2;
+}
+#artworkpart, #authorpart, #categorynamepart, #searchcategorydiv, #searchauthordiv {
+    display: none;
+}
+#createauctionformupper input[type="checkbox"] {
+    margin-right: 1rem;
+    margin-top: 0.75rem;
+}
+hgroup{
+   text-align: center;
+}
+.modal-title, .modal-body {
+    color: #2c3531;
+}
+.bidbtn, .yesbtn {
+    background-color: #ffcb9a;
+}
+.bidbtn:focus{
+    box-shadow: none;
+}
+.closebtn:focus{
+    box-shadow: none;
+    outline:none;
+}
+#errmodal {
+    color: #ffcb9a;
+}
+input[type="submit"] {
+    background-color: #ffcb9a;
+    color: #2c3531;
+}
+input[type="submit"]:hover {
+    background-color: #ffcb9a;
+    color: #2c3531;
+}
+input[type="text"], input[type="number"], input[type="email"], input[type="password"], #Bio, #browse, input[type="date"]{
+    background-color: #116466;
+    color: white;
+}
+    input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="date"]:focus, #Bio, #browse {
+        box-shadow: none;
+        background-color: #116466;
+        color: white;
+    }
+#profileinfo p {
+    font-style: italic;
+    padding-bottom: 1rem;
+}
+#profileinfo {
+    margin: 2rem 0rem;
+}
+#profilepic {
+    max-width: 100%;
+    max-height: 25rem;
+    border: 0.3rem solid #d1e8e2;
+}
+#passwdchb {
+    width: 3rem;
+    height: 1.5rem;
+}
+#piccontainer {
+    text-align: center;
+}
+#togglercontainer {
+    display: none;
+}
+#btnexpand {
+    border: 0.5px solid #d1e8e2;
+    width: 50px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: #116466;
+    display: none;
+}
+.chpswd {
+    display: none;
+}
+#browse {
+    text-align: center;
+}
+.text-danger {
+    color: #ffcb9a !important;
+}
+.badge {
+    background-color: #ffcb9a;
+    color: #2c3531;
+}
+.bg-dark {
+    background-color: #116466 !important;
+}
+.navbar {
+    padding: 0.1rem 1rem;
+}
+a {
+    color: #ffcb9a;
+    font-weight: bold;
+}
+strong {
+    color: #ffcb9a;
+}
+a:hover {
+    text-decoration: none;
+    color: #d1e8e2;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: #d1e8e2;
+    letter-spacing: 0.19rem;
+    font-size: 0.8rem;
+    font-weight: normal;
+}
+.nav-link {
+    display: block;
+    padding: 0.5rem 0.5rem;
+}
+.page-link:hover {
+    background-color: #117566 !important;
+}
+.page-link:focus{
+    box-shadow:none;
+}
+main{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+.artworkimage {
+    border: 0.3rem solid #d1e8e2;
+}
+#artworkblock h5{
+    padding: 1rem 0rem;
+    text-align: center;
+}
+#artworkblock h6 {
+    padding: 0.5rem 0rem;
+}
+#artworkblock ul li:last-child{
+    list-style-type: none;
+    font-size:0.7rem;
+}
+#latestoffers {
+    margin-top: 2rem;
+}
+#options{
+    margin-top: 3rem;
+}
+.auctaction {
+    background-color: #116466;
+    color: #d1e8e2;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    border: 0.05rem solid #d1e8e2;
+    font-weight: normal;
+}
+.card {
+    background-color: #116466 !important;
+    color: #d1e8e2;
+    font-weight: normal;
+    margin-top: 0.7rem;
+    margin-bottom: 0.7rem;
+    border: 0.05rem solid #d1e8e2;
+}
+.trendingdiv {
+    background-color: #116466 !important;
+    color: #d1e8e2;
+    font-weight: normal;
+    padding:0.8rem;
+    margin-top:0.5rem;
+    margin-bottom:0.5rem;
+    border: 0.05rem solid #d1e8e2;
+    border-radius:5px;
+}
+hr {
+    background-color: #d1e8e2;
+}
+.active {
+    color: #ffcb9a;
+}
+.fa-check{
+    color:white;
+}
+.pagination {
+    margin-top: 4rem;
+}
+.page-link {
+    background-color: #116466 !important;
+    color: #ffcb9a;
+}
+.page-link:hover {
+    color: #ffcb9a;
+}
+@media screen and (max-width: 775px) {
+    .trendingdiv{
+        margin:0.3rem;
+    }
+    .navbar-nav {
+        display: none;
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        background-color: #116466;
+        opacity: 0.85;
+        top: 3rem;
+        left: 0rem;
+        z-index: 1;
+    }
+    #btnexpand {
+        display: inline-block;
+    }
+    #togglercontainer h1{
+        font-size: 2rem;
+        float: right;
+    }
+    #togglercontainer {
+        margin-top: 0.5rem;
+        display: inline-block;
+        width: 100%;
+    }
+}
